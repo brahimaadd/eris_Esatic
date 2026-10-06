@@ -2,10 +2,11 @@
 
 ## Présentation de l'équipe
 
-- LEFEBVRE Charles
-- MICHELIS Nathaniel
-- COMPAGNONI Florent
+- Axel Kre
+- Bradi Le Ghost
+- Henoc Le Grand Papa
+
 
 ## Date du TP
 
-19/11/2025
+06/10/2026
