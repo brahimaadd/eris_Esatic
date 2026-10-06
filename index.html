@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESATIC GitFlow — Le Guide & Simulateur Git / GitHub d'Excellence</title>
+  <meta name="description" content="Plateforme interactive de maîtrise de Git & GitHub pour les étudiants et futurs ingénieurs de l'ESATIC. Simulateur en temps réel, cheat-sheet et cas d'usage par filière.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- BACKGROUND DECORATIVE GRID -->
+  <div class="tech-grid-bg" aria-hidden="true"></div>
+  <div class="glow-orb orb-primary" aria-hidden="true"></div>
+  <div class="glow-orb orb-secondary" aria-hidden="true"></div>
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="top-announcement">
+    <div class="container announcement-inner">
+      <div class="announcement-left">
+        <span class="badge-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          ESATIC 2026
+        </span>
+        <span>Pôle d'Excellence des TIC en Afrique • <strong>Projet de Soutenance & Ingénierie</strong></span>
+      </div>
+      <div class="announcement-shortcut">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+        <span>Raccourci : <kbd>Ctrl</kbd> + <kbd>K</kbd></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-group">
+        <div class="brand-logo-frame">
+          <img src="assets/images/logo-esatic.png" alt="Logo ESATIC" class="brand-logo">
+        </div>
+        <div class="brand-divider"></div>
+        <div class="brand-text">
+          <span class="brand-title">GitFlow <span class="brand-version">v2.4</span></span>
+          <span class="brand-sub">École Supérieure Africaine des TIC</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#simulator" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          Simulateur
+        </a>
+        <a href="#commands" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+          Cheat Sheet
+        </a>
+        <a href="#filieres" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Filières ESATIC
+        </a>
+        <a href="#emergency" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          SOS Conflits
+        </a>
+        <a href="#academie" class="nav-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Soutenance & Équipe
+        </a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="search-trigger-btn" class="search-trigger" title="Recherche rapide (Ctrl+K)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span class="search-placeholder">Rechercher...</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+        <button id="theme-toggle-btn" class="icon-button" aria-label="Basculer le thème">
+          <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content reveal-on-scroll">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span>Version Professionnelle • Validé pour Soutenance</span>
+          </div>
+          <h1 class="hero-title">
+            L'excellence <span class="text-gradient-blue">Git & GitHub</span> au service des futurs ingénieurs.
+          </h1>
+          <p class="hero-description">
+            Plateforme interactive conçue pour les étudiants de l'<strong>ESATIC</strong>. Simulez vos arbres de branches en temps réel, maîtrisez les commandes critiques et découvrez les workflows collaboratifs de pointe adaptés à chaque filière.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#simulator" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              Lancer le Simulateur Live
+            </a>
+            <a href="#filieres" class="btn btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+              Consulter les Filières
+            </a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <span class="metric-value">12</span>
+              <span class="metric-label">Filières ESATIC</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-card">
+              <span class="metric-value">100%</span>
+              <span class="metric-label">Simulateur Live</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-card">
+              <span class="metric-value">DevOps</span>
+              <span class="metric-label">Standards Métiers</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO INTERACTIVE TERMINAL PREVIEW WITH REAL-TIME TYPER -->
+        <div class="hero-preview reveal-on-scroll delay-1">
+          <div class="window-shell">
+            <div class="window-header">
+              <div class="window-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <div class="window-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                esatic-etudiant@terminal:~ (zsh)
+              </div>
+              <div class="window-tag">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
+                <span class="branch-pill" id="hero-branch-label">main</span>
+              </div>
+            </div>
+            <div class="window-body code-font" id="hero-terminal-body">
+              <div class="terminal-line"><span class="prompt">esatic$</span> <span class="typed-cmd">git init esatic-innovation-hub</span></div>
+              <div class="terminal-output text-muted">Initialized empty Git repository in /workspace/esatic-hub/.git/</div>
+              <div class="terminal-line"><span class="prompt">esatic$</span> <span class="typed-cmd">git checkout -b feature/soutenance-2026</span></div>
+              <div class="terminal-output text-success">Switched to a new branch 'feature/soutenance-2026'</div>
+              <div class="terminal-line"><span class="prompt">esatic$</span> <span class="typed-cmd">git commit -m "feat(sigl): architecture validée"</span></div>
+              <div class="terminal-output text-info">[feature/soutenance-2026 8f3c1a2] feat(sigl): architecture validée</div>
+              <div class="terminal-line dynamic-line"><span class="prompt">esatic$</span> <span id="hero-typing-text">git push origin main</span><span class="terminal-cursor"></span></div>
+            </div>
+            <div class="window-footer">
+              <span class="footer-status">
+                <span class="dot-online"></span> Connecté au GitHub Enterprise ESATIC
+              </span>
+              <span class="footer-latency">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2EA043" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Arbre Synchronisé
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: SIMULATEUR GIT EN TEMPS REEL -->
+    <section id="simulator" class="section-container">
+      <div class="container">
+        <div class="section-head text-center reveal-on-scroll">
+          <div class="section-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Playground Dynamique
+          </div>
+          <h2 class="section-title">Simulateur & Visualiseur d'Arbre Git</h2>
+          <p class="section-subtitle">
+            Manipulez le graphe acyclique dirigé (DAG) en direct. Tapez de vraies commandes ou utilisez les déclencheurs rapides.
+          </p>
+        </div>
+
+        <div class="simulator-wrapper reveal-on-scroll">
+          <!-- CONSOLE COL -->
+          <div class="sim-terminal-pane">
+            <div class="pane-header">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                Console Interactive
+              </div>
+              <div class="pane-actions">
+                <button id="sim-reset-btn" class="btn-xs btn-outline">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  Réinitialiser
+                </button>
+              </div>
+            </div>
+
+            <!-- QUICK COMMAND PALETTE BUTTONS -->
+            <div class="quick-commands-bar">
+              <span class="quick-label">Actions rapides :</span>
+              <button class="quick-chip" data-cmd="git commit -m &quot;feat: mise à jour du projet&quot;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/></svg>
+                Commit
+              </button>
+              <button class="quick-chip" data-cmd="git branch dev">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
+                + Branche dev
+              </button>
+              <button class="quick-chip" data-cmd="git checkout dev">Checkout dev</button>
+              <button class="quick-chip" data-cmd="git checkout main">Checkout main</button>
+              <button class="quick-chip" data-cmd="git merge dev">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
+                Merge dev
+              </button>
+              <button class="quick-chip" data-cmd="git status">Status</button>
+              <button class="quick-chip" data-cmd="help">Aide</button>
+            </div>
+
+            <div id="sim-console-screen" class="sim-screen code-font">
+              <div class="console-msg system-msg">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <div>
+                  <strong>Simulateur Git ESATIC v2.4 initialisé.</strong><br>
+                  Tapez <strong class="text-primary">help</strong> pour voir les commandes ou cliquez sur les actions rapides.
+                </div>
+              </div>
+            </div>
+
+            <form id="sim-form" class="sim-input-row">
+              <span class="sim-prompt code-font">git@esatic:<span id="sim-current-branch-badge">main</span>$</span>
+              <input type="text" id="sim-input" class="sim-input code-font" placeholder="Entrez une commande (ex: git commit -m &quot;mon travail&quot;)..." autocomplete="off" spellcheck="false">
+              <button type="submit" class="btn btn-primary btn-sm">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                Exécuter
+              </button>
+            </form>
+          </div>
+
+          <!-- GRAPH CANVAS COL -->
+          <div class="sim-graph-pane">
+            <div class="pane-header">
+              <div class="pane-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
+                Arbre de Commits Dynamique (SVG)
+              </div>
+              <div class="graph-legend">
+                <span class="legend-item"><span class="legend-bullet bg-blue"></span> main</span>
+                <span class="legend-item"><span class="legend-bullet bg-purple"></span> dev</span>
+                <span class="legend-item"><span class="legend-bullet bg-green"></span> HEAD</span>
+              </div>
+            </div>
+
+            <div class="graph-canvas-container" id="graph-container">
+              <svg id="git-graph-svg" class="git-svg"></svg>
+            </div>
+
+            <div class="graph-inspector">
+              <div class="inspector-item">
+                <span class="inspector-label">Branche :</span>
+                <span id="inspect-branch" class="badge-branch">main</span>
+              </div>
+              <div class="inspector-item">
+                <span class="inspector-label">HEAD :</span>
+                <code id="inspect-head" class="code-font text-info">c1 (Init)</code>
+              </div>
+              <div class="inspector-item">
+                <span class="inspector-label">Total :</span>
+                <span id="inspect-total-commits" class="inspector-val">1 commit</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: CHEAT SHEET DES COMMANDES INTERACTIVES -->
+    <section id="commands" class="section-container bg-surface-alt">
+      <div class="container">
+        <div class="section-head text-center reveal-on-scroll">
+          <div class="section-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+            Répertoire Officiel
+          </div>
+          <h2 class="section-title">Guide des Commandes Git Fondamentales</h2>
+          <p class="section-subtitle">
+            Classées par phase opérationnelle de projet. Cliquez pour copier instantanément ou tester directement dans la console.
+          </p>
+
+          <!-- CATEGORY FILTERS -->
+          <div class="category-pills" id="cmd-filters">
+            <button class="pill-btn active" data-filter="all">Toutes</button>
+            <button class="pill-btn" data-filter="demarrage">Démarrage & Setup</button>
+            <button class="pill-btn" data-filter="quotidien">Travail Quotidien</button>
+            <button class="pill-btn" data-filter="branches">Branches & Fusion</button>
+            <button class="pill-btn" data-filter="remote">GitHub & Distant</button>
+            <button class="pill-btn" data-filter="inspection">Historique & Diff</button>
+            <button class="pill-btn" data-filter="rollback">Annulation & Sauvetage</button>
+          </div>
+        </div>
+
+        <div class="commands-grid reveal-on-scroll" id="commands-list">
+          <!-- Dynamic Command Cards populated via JavaScript with real SVG icons -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: MATRICE DES FILIERES ESATIC x GITHUB -->
+    <section id="filieres" class="section-container">
+      <div class="container">
+        <div class="section-head text-center reveal-on-scroll">
+          <div class="section-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            Spécificités Pédagogiques
+          </div>
+          <h2 class="section-title">Git & GitHub selon Votre Filière à l'ESATIC</h2>
+          <p class="section-subtitle">
+            Chaque spécialité a ses impératifs professionnels : DevSecOps, Infrastructure as Code, Machine Learning ou Développement Web.
+          </p>
+
+          <!-- CYCLES TOGGLE -->
+          <div class="cycle-tabs">
+            <button class="cycle-tab active" data-cycle="all">Toutes les Filières</button>
+            <button class="cycle-tab" data-cycle="licence">Cycles Licence (5)</button>
+            <button class="cycle-tab" data-cycle="master">Cycles Master (7)</button>
+          </div>
+        </div>
+
+        <div class="filieres-grid reveal-on-scroll" id="filieres-cards-container">
+          <!-- Populated by JavaScript with real SVG icons & details -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: MODE SECOURS / GIT EMERGENCY -->
+    <section id="emergency" class="section-container bg-surface-alt">
+      <div class="container">
+        <div class="emergency-box reveal-on-scroll">
+          <div class="emergency-header">
+            <div class="emergency-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Mode Secours Étudiant • SOS Git
+            </div>
+            <h2>« Au secours, j'ai tout cassé à 2h de la soutenance ! »</h2>
+            <p>Sélectionnez votre situation critique pour obtenir la procédure de réparation immédiate, sans détruire votre travail.</p>
+          </div>
+
+          <div class="emergency-grid">
+            <div class="emergency-card" onclick="openEmergencyModal('wrong-branch')">
+              <div class="emergency-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></svg>
+              </div>
+              <h3>Commits sur la mauvaise branche</h3>
+              <p>Vous avez travaillé et commité sur <code>main</code> au lieu de votre branche de fonctionnalités.</p>
+              <span class="link-arrow">
+                Résoudre l'incident
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+
+            <div class="emergency-card" onclick="openEmergencyModal('secret-leak')">
+              <div class="emergency-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <h3>Fuite de mot de passe ou .env</h3>
+              <p>Une clé API secrète ou un fichier de configuration confidentiel a été poussé sur GitHub.</p>
+              <span class="link-arrow">
+                Résoudre l'incident
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+
+            <div class="emergency-card" onclick="openEmergencyModal('merge-conflict')">
+              <div class="emergency-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <h3>Conflit de merge complexe</h3>
+              <p>Git refuse la mise à jour ou affiche des balises <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> dans votre code.</p>
+              <span class="link-arrow">
+                Résoudre l'incident
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+
+            <div class="emergency-card" onclick="openEmergencyModal('lost-commit')">
+              <div class="emergency-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h3>Commit perdu après un reset</h3>
+              <p>Vous avez fait un <code>reset --hard</code> et vous voulez récupérer vos fichiers grâce à <code>git reflog</code>.</p>
+              <span class="link-arrow">
+                Résoudre l'incident
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: INSTITUTION, SOUTENANCE & EXCELLENCE ACADEMIQUE -->
+    <section id="academie" class="section-container">
+      <div class="container">
+        <div class="section-head text-center reveal-on-scroll">
+          <div class="section-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Cadre Officiel & Institutionnel
+          </div>
+          <h2 class="section-title">L'Excellence Académique à l'ESATIC</h2>
+          <p class="section-subtitle">
+            École Supérieure Africaine des Technologies de l'Information et de la Communication — Le Pôle d'Excellence en Afrique.
+          </p>
+        </div>
+
+        <!-- CRISP EDITORIAL SHOWCASE (PAS D'IMAGES ÉTIRÉES FLOUES) -->
+        <div class="academic-showcase-grid reveal-on-scroll">
+          <!-- Card 1: Direction & Comite -->
+          <div class="academic-card">
+            <div class="academic-img-frame">
+              <div class="academic-img-inner">
+                <img src="assets/images/comite-direction.png" alt="Comité de Direction et Corps Administratif ESATIC" class="crisp-photo" onclick="openLightbox('assets/images/comite-direction.png', 'Comité Administratif & Direction Générale ESATIC')">
+              </div>
+              <div class="academic-photo-meta">
+                <span class="photo-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  Gouvernance ESATIC
+                </span>
+                <button class="zoom-btn" onclick="openLightbox('assets/images/comite-direction.png', 'Comité Administratif & Direction Générale ESATIC')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                  Agrandir
+                </button>
+              </div>
+            </div>
+            <div class="academic-body">
+              <span class="academic-kicker">Gouvernance & Encadrement Pédagogique</span>
+              <h3>Comité Administratif & Conseil de Perfectionnement</h3>
+              <p>
+                L'ESATIC forme l'élite de l'ingénierie numérique en Côte d'Ivoire et sur le continent. 
+                La maîtrise professionnelle de GitHub et des pipelines DevOps est exigée pour garantir l'adéquation parfaite entre formation académique et marché international.
+              </p>
+              <div class="academic-tags">
+                <span class="tag-pill">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  Normes Internationales
+                </span>
+                <span class="tag-pill">Qualité Logicielle</span>
+                <span class="tag-pill">Campus Treichville</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Soutenance & Diplomes -->
+          <div class="academic-card">
+            <div class="academic-img-frame">
+              <div class="academic-img-inner">
+                <img src="assets/images/soutenance-diplomes.png" alt="Promotion des Diplômés ESATIC en toges de soutenance" class="crisp-photo" onclick="openLightbox('assets/images/soutenance-diplomes.png', 'Promotion des Diplômés & Soutenances de Projets ESATIC')">
+              </div>
+              <div class="academic-photo-meta">
+                <span class="photo-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  Promotions Diplômées
+                </span>
+                <button class="zoom-btn" onclick="openLightbox('assets/images/soutenance-diplomes.png', 'Promotion des Diplômés & Soutenances de Projets ESATIC')">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                  Agrandir
+                </button>
+              </div>
+            </div>
+            <div class="academic-body">
+              <span class="academic-kicker">Parcours d'Excellence & Validation</span>
+              <h3>Soutenances des Projets de Fin d'Études</h3>
+              <p>
+                De la Licence au Master d'Ingénieur, les étudiants soutiennent leurs réalisations devant des jurys exigeants. 
+                L'historique Git vérifiable, le respect des conventions de commit et le déploiement continu font partie intégrante de la grille d'évaluation.
+              </p>
+              <div class="academic-tags">
+                <span class="tag-pill">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  Soutenances Licences
+                </span>
+                <span class="tag-pill">Soutenances Masters</span>
+                <span class="tag-pill">R&D & Projets Métiers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BROCHURE OFFICIELLE AVEC CADRE NET -->
+        <div class="official-banner-wrap reveal-on-scroll">
+          <div class="banner-content">
+            <div class="banner-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Brochure Institutionnelle & Contact
+            </div>
+            <h3>Pôle d'Excellence des TIC en Afrique</h3>
+            <p>Formations d'élite en Informatique, Télécommunications, Sécurité et Data Science.</p>
+            <div class="banner-contacts">
+              <div class="contact-pill">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>27 21 218 100 / 07 79 783 834 / 05 66 413 242</span>
+              </div>
+              <div class="contact-pill">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <a href="https://www.esatic.ci" target="_blank" rel="noopener">www.esatic.ci</a>
+              </div>
+              <div class="contact-pill">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Km 4 Boulevard de Marseille, Treichville, Abidjan</span>
+              </div>
+            </div>
+          </div>
+          <div class="banner-visual">
+            <div class="brochure-preview-card" onclick="openLightbox('assets/images/esatic-filieres.png', 'Grille Officielle des Filières Licences et Masters ESATIC')">
+              <img src="assets/images/esatic-filieres.png" alt="Offre de formation Licences et Masters ESATIC" class="crisp-brochure">
+              <div class="brochure-zoom-hint">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                Cliquer pour agrandir la grille des filières
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col-brand">
+        <div class="brand-group">
+          <div class="brand-logo-frame">
+            <img src="assets/images/logo-esatic.png" alt="Logo ESATIC" class="brand-logo footer-logo">
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">ESATIC GitFlow</span>
+            <span class="brand-sub">Pôle d'Excellence des TIC</span>
+          </div>
+        </div>
+        <p class="footer-desc">
+          Plateforme interactive conçue pour accompagner les étudiants de l'ESATIC dans la maîtrise des standards de versioning logiciel et de collaboration moderne.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation Rapide</h4>
+        <ul>
+          <li><a href="#simulator">Simulateur Interactif</a></li>
+          <li><a href="#commands">Guide des Commandes</a></li>
+          <li><a href="#filieres">Parcours par Filière</a></li>
+          <li><a href="#emergency">SOS Conflits Git</a></li>
+          <li><a href="#academie">Soutenance & Équipe</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Filières Clés</h4>
+        <ul>
+          <li><a href="#filieres">Licence SIGL & DASI</a></li>
+          <li><a href="#filieres">Master ERIS (Réseaux & Sécurité)</a></li>
+          <li><a href="#filieres">Master BIHAR (Big Data & IA)</a></li>
+          <li><a href="#filieres">Master SITW (Sécurité & Web)</a></li>
+          <li><a href="#filieres">Licence TWIN (Technologies Web)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacts & Réseaux</h4>
+        <p class="contact-line">Abidjan, Zone 3 - Treichville</p>
+        <p class="contact-line">Tél : (+225) 27 21 21 81 00</p>
+        <p class="contact-line">Email : contact@esatic.ci</p>
+        <div class="social-links">
+          <a href="https://www.esatic.ci" target="_blank" class="social-btn" aria-label="Site Web Officiel" title="Site Web Officiel">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="https://facebook.com/esatic" target="_blank" class="social-btn" aria-label="Facebook ESATIC" title="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://linkedin.com/school/esatic" target="_blank" class="social-btn" aria-label="LinkedIn ESATIC" title="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container bottom-inner">
+        <span>© 2026 ESATIC — École Supérieure Africaine des TIC. Tous droits réservés.</span>
+        <span>Conçu pour Soutenance & Démonstration Technique d'Ingénierie.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX / ZOOM MODAL POUR LES IMAGES -->
+  <div id="image-lightbox-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="lightbox-card">
+      <div class="lightbox-header">
+        <h4 id="lightbox-title">Aperçu HD</h4>
+        <button class="modal-close" onclick="closeLightbox()">&times;</button>
+      </div>
+      <div class="lightbox-body">
+        <img id="lightbox-img" src="" alt="Aperçu HD">
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: COMMAND PALETTE (CTRL+K) -->
+  <div id="command-palette-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="palette-card">
+      <div class="palette-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="palette-search-input" placeholder="Rechercher une commande Git, une filière ESATIC ou un outil..." autocomplete="off">
+        <kbd>Échap</kbd>
+      </div>
+      <div class="palette-results" id="palette-results-list">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="palette-footer">
+        <span><kbd>↑</kbd> <kbd>↓</kbd> pour naviguer</span>
+        <span><kbd>Entrée</kbd> pour exécuter</span>
+        <span><kbd>Échap</kbd> pour fermer</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EMERGENCY DETAIL -->
+  <div id="emergency-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0883E" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <h3 id="em-modal-title">Procédure de Sauvetage</h3>
+        </div>
+        <button class="modal-close" onclick="closeEmergencyModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="em-modal-content">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
