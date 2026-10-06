@@ -9,14 +9,21 @@ pipeline {
             }
         }
 
-        stage('Verification') {
+        stage('Tests') {
             steps {
                 sh '''
-                    echo "=== Vérification du projet ==="
+                    echo "=== TESTS DU PROJET ==="
+
                     test -f index.html
                     test -f README.md
                     test -f styles.css
-                    echo "Fichiers requis présents"
+
+                    grep -q "<html" index.html
+                    grep -q "<h1>" index.html
+                    grep -q "<h2>" index.html
+                    grep -q "styles.css" index.html
+
+                    echo "Tous les tests sont OK"
                 '''
             }
         }
